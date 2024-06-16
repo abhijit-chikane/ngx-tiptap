@@ -1,0 +1,45 @@
+.ProseMirror {
+    white-space: pre-wrap;
+  }
+  
+  .ProseMirror p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: #ced4da;
+    pointer-events: none;
+    height: 0;
+  }
+  
+  p {
+    line-height: 1.5;
+    margin-bottom: 5px;
+  }
+  
+  .tippy-box {
+    background-color: unset;
+    color: unset;
+  }
+  
+  .tippy-content {
+    padding: unset;
+  }
+  
+  .tippy-arrow {
+    display: none;
+  }
+  
+ ::ng-deep .mention {
+    border: 1px solid black;
+    border-radius: 0.3rem;
+    padding: 0 0.3rem;
+    background-color: lightblue;
+  }
+  
+  ::ng-deep .tiptap{
+    border: 1px solid black;
+    border-radius: 4px;
+  }
+
+  ::ng-deep .tiptap>p{
+    margin:2px;
+  }
