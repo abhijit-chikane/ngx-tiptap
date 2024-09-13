@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { AngularNodeViewComponent } from 'ngx-tiptap';
 
 @Component({
@@ -11,6 +11,7 @@ import { AngularNodeViewComponent } from 'ngx-tiptap';
 })
 export class MentionListComponent extends AngularNodeViewComponent {
   @Input('props') props!: Record<string, any>;
+  @ViewChild('mentionList', { static: true }) mentionList!: ElementRef<HTMLUListElement>;
 
   selectedIndex = 0;
 
@@ -39,11 +40,13 @@ export class MentionListComponent extends AngularNodeViewComponent {
   onKeyDown({ event }: any) {
     if (event.key === 'ArrowUp') {
       this.upHandler();
+      this.scrollToSelectedItem();
       return true;
     }
 
     if (event.key === 'ArrowDown') {
       this.downHandler();
+      this.scrollToSelectedItem();
       return true;
     }
 
@@ -53,5 +56,14 @@ export class MentionListComponent extends AngularNodeViewComponent {
     }
 
     return false;
+  }
+
+  private scrollToSelectedItem() {
+    if (this.mentionList) {
+      const items = this.mentionList.nativeElement.querySelectorAll('button');
+      if (items[this.selectedIndex]) {
+        items[this.selectedIndex].scrollIntoView({ block: 'nearest' });
+      }
+    }
   }
 }
